@@ -1,0 +1,105 @@
+---
+title: "AMNH Parasite Ecology Module Lab 2"
+author: "Maureen Anne Williams"
+date: "`r Sys.Date()`"
+output: html_document
+---
+Set up the R Markdown file 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Input the data into R and load the packages needed (tidyverse, knitr, plyr) for the analysis. We need to make sure the data is in the correct form for the analysis by changing variable classifications as appropriate. 
+```{r warning=FALSE, tidy=TRUE}
+#Load the tidyverse package
+library(tidyverse)
+library(plyr)
+library(knitr)
+
+#Input dataset from csv
+amnhfish <-
+  read.csv("amnh_lab2_data.csv", #import data from CSV
+           header = T,           #first row is the column names
+           stringsAsFactors = F) #strings should not be immediate input as factors
+str(amnhfish) #check the structre of the data set
+amnhfish$fishing_status <-
+  as.factor(amnhfish$fishing_status) #fishing status is a factor
+amnhfish$fish_sp <-
+  as.factor(amnhfish$fish_sp) #fish species is a factor
+amnhfish$island <- as.factor(amnhfish$island) #island is a factor
+amnhfish$habitat <-
+  as.factor(amnhfish$habitat) #fish habitat is a factor
+amnhfish$parasite <-
+  as.factor(amnhfish$parasite) #parasite is a factor
+amnhfish$parasite_class <-
+  as.factor(amnhfish$parasite_class) #parasite class is a factor
+amnhfish$transmission <-
+  as.factor(amnhfish$transmission) #parasite transmission method is a factor
+amnhfish$count <-
+  as.numeric(amnhfish$count) #parasite count is a number, not an integer
+
+```
+
+Our main task is to find the means and standard deviations for each parasite within each fish species on fished and unfished islands. To do this, we will generate two summary tables of means and standard errors. The first is the overall mean for each parasite within each host and the second looks at fished and unfished islands in particular. 
+
+```{r warning=FALSE, tidy=TRUE}
+kable(                            #kable prints the table within the markdown document
+  summary_table <- amnhfish %>%  #generate a summary table that is based on the data in amnhfish
+    ddply(                       #ddply allows us to quickly summarize the data
+      c("fish_sp", "parasite"),  #these are the groupings we are getting the mean for
+      summarize,                 #summarize will summarize the data   
+      N    = length(count),      #N is the number of individuals sampled
+      mean = mean (count, na.rm = T), #mean generates the mean number of parasites, na.rm allows us to ignore any totally missing cells while still counting the zeros
+      sd   = sd(count, na.rm = T), #sd generates the standard deviation of the number of parasites, na.rm allows us to ignore any totally missing cells while still counting the zeros 
+      se   = sd / sqrt(N) #se generates the standard error of the number of parasites, na.rm allows us to ignore any totally missing cells while still counting the zeros
+    )
+)
+
+kable(                                            #kable prints the table within the markdown document
+  summary_table_fishing <- amnhfish %>%           #generate a new summary table that is based on the data in amnhfish
+    ddply(                                        #ddply allows us to quickly summarize the data
+      c("fish_sp", "fishing_status", "parasite"), #these are the groupings we are getting the mean for
+ summarize,                 #summarize will summarize the data   
+      N    = length(count),      #N is the number of individuals sampled
+      mean = mean (count, na.rm = T), #mean generates the mean number of parasites, na.rm allows us to ignore any totally missing cells while still counting the zeros
+      sd   = sd(count, na.rm = T), #sd generates the standard deviation of the number of parasites, na.rm allows us to ignore any totally missing cells while still counting the zeros 
+      se   = sd / sqrt(N) #se generates the standard error of the number of parasites, na.rm allows us to ignore any totally missing cells while still counting the zeros
+    )
+)
+                   
+```
+
+
+Now we want to generate a plot of this data to visually analyze the patterns. 
+```{r}
+initial_plot <-         #Generate the plot
+  ggplot(summary_table_fishing,     #Use ggplot 2 and the summary table we generated above
+         aes(     #set the aesthetics within ggplot2
+           x = parasite, #our x axis are the parasites
+           y = mean,     #our y axis is the mean of the abundance
+           fill = fishing_status, #make separate bars based on fishing status 
+           width = 0.75 #make the bars a little thinner so they're easier to see
+         )) +
+  geom_bar(stat = "identity", #make the chart a bar chart
+           position = position_dodge(), #don't stack the fished and unfished data, put them side by side
+           color = "black") + #outline the bar in black
+  facet_wrap( ~ fish_sp, scales = "free") + #make a different panel for each host species and don't require all parasites to be represented for each fish
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), #set the standard error as the error bar
+                width = .2, #make the error bars not too wide
+                position = position_dodge(0.9)) + #make sure error bars are on the correct bars
+  theme(           #make it slightly prettier 
+    axis.text = element_text(size = 12), #set axis text size 
+    axis.title = element_text(size = 14, face = "bold"), #set axis title text size 
+    legend.title = element_text(size = 12), #set legend title text size 
+    legend.text = element_text(size = 12), #set legend text size 
+    axis.text.x = element_text(angle = 65, hjust = 1), #set axis text to be angled so it is legible and keep it underneath the axis 
+    legend.position = "right", #legend is present and on the right
+    panel.grid.major = element_blank(), #remove internal grids
+    panel.grid.minor = element_blank(), #remove internal grids
+    panel.background = element_blank(), #remove internal background color
+    axis.line = element_line(colour = "black") #axis lines are black
+  )
+initial_plot #view the plot
+```
+

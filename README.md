@@ -1,28 +1,7 @@
-# Example repo for testing `holepunch`
-
-This repository is an example repo to test out the [`holepunch`](https://github.com/karthik/holepunch) package. It uses a few `tidyverse` packages but also the `dataRetrieval` package for the `yahara_dat` dataset.
-
-To test `holepunch`, follow these steps:
-
-1. Click Use this template to the left of Clone or download.
-![template](https://i.imgur.com/TcLpIvM.png)
-2. Give this repo a new name and create a new repo in your account
-3. Click the Clone or download button, copy the URL.
-
-![](https://i.imgur.com/0KEJZ9s.png)
-
-4. in RStudio Desktop, click the Project drop down on the top right, Choose **New Project** > **Version Control** > **Git**, and paste in the URL of your new GitHub repository
-
-![](https://i.imgur.com/oJOV1ng.png)  
-
-![](https://i.imgur.com/n3RZrMc.png)  
-
-![](https://i.imgur.com/CJcAKR1.png)  
-
-![](https://i.imgur.com/ieEmPRU.png)  
-
-
+#Example Analysis for the AMNH Parasite Ecology Module Lab 2
 # Now in RStudio
+
+This analysis will load the dataset, make sure all the variables are correctly categorized by R. Then the code will generate tables of the means and standard errors of parasite abundance within each of the hosts in fished and unfished areas. Finally, it generates a plot of the means and standard errors of abundance using ggplot2. 
 
 1. Install `holepunch` with `remotes::install_github("karthik/holepunch")`
 2. Then run the following code:
