@@ -1,5 +1,5 @@
+Example Analysis for the AMNH Parasite Ecology Module Lab 2
 
-#Example Analysis for the AMNH Parasite Ecology Module Lab 2
 Now in RStudio
 
 This analysis will load the dataset, make sure all the variables are correctly categorized by R. Then the code will generate tables of the means and standard errors of parasite abundance within each of the hosts in fished and unfished areas. Finally, it generates a plot of the means and standard errors of abundance using ggplot2. The analysis is set up as a compendium, and should allow for full reproducibility.  
