@@ -3,24 +3,21 @@ Package: AMNH Parasites Module
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.1
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Maureen Anne",
+           family = "Williams",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "mwilli25@uw.edu",
+           comment = c(ORCID = "0000-0001-7886-9353"))
 Description: AMNH Parasite Ecolog module analysis. Contains the
     data and example code for the analysis.
 License: What license it uses
 Depends: 
-    dataRetrieval,
     dplyr,
     ggplot2,
     knitr,
-    lubridate,
     plyr,
     rmarkdown,
     tidyr,
     tidyverse,
-    viridis
 Encoding: UTF-8
 LazyData: true
