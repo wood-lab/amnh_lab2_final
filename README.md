@@ -1,4 +1,4 @@
-Example Analysis for the AMNH Parasite Ecology Module Lab 2
+Example Analysis for the NCEP Parasite Biodiversity: Community Data Analysis Exercise
 
 Now in RStudio
 
@@ -15,7 +15,7 @@ The following items are included in this repository:
 2. .gitingore includes a list of things to not be pushed to this repo
 3. DESCRIPTION file containing the project metadata and dependencies
 4. README this document! Contains general info on the files and how to use them.
-5. amnh_lab2_data.csv the data for the analysis as a comma separated text document
-6. amnh_lab2_markdown.html the html version of the R Markdown file with the code for analysis
-7. amnh_lab2_markdown.Rmd the markdown file with the R code for the analysis
+5. ParasiteBiodiversity_DATA.csv the data for the analysis as a comma separated text document
+6. ParasiteBiodiversity_DATA_markdown.html the html version of the R Markdown file with the code for analysis
+7. ParasiteBiodiversity_DATA_markdown.Rmd the markdown file with the R code for the analysis
 8. binder-test.Rproj file to keep all the other files linked together in R. 

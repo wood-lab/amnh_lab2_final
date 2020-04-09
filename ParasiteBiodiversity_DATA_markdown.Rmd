@@ -1,5 +1,5 @@
 ---
-title: "AMNH Parasite Ecology Module Lab 2"
+title: "Example Analysis for the NCEP Parasite Biodiversity: Community Data Analysis Exercise"
 author: "Maureen Anne Williams"
 date: "`r Sys.Date()`"
 output: html_document
@@ -19,7 +19,7 @@ library(knitr)
 
 #Input dataset from csv
 amnhfish <-
-  read.csv("amnh_lab2_data.csv", #import data from CSV
+  read.csv("ParasiteBiodiversity_DATA.csv", #import data from CSV
            header = T,           #first row is the column names
            stringsAsFactors = F) #strings should not be immediate input as factors
 str(amnhfish) #check the structre of the data set
